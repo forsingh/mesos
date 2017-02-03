@@ -1,0 +1,57 @@
+{
+  "id": "/rabbitmq-demo",
+  "cmd": null,
+  "cpus": 0.3,
+  "mem": 256,
+  "disk": 0,
+  "instances": 1,
+  "container": {
+    "type": "DOCKER",
+    "volumes": [],
+    "docker": {
+      "image": "dockerbox2/capdemo:latest",
+      "network": "BRIDGE",
+      "portMappings": [
+        {
+          "containerPort": 5672,
+          "hostPort": 5672,
+          "servicePort": 10112,
+          "protocol": "tcp",
+          "labels": {
+            "VIP_0": "172.31.250.250:5672"
+          }
+        },
+        {
+          "containerPort": 15672,
+          "hostPort": 0,
+          "servicePort": 10111,
+          "protocol": "tcp",
+          "labels": {
+            "VIP_0": "172.31.250.250:15672"
+          }
+        }
+      ],
+      "privileged": false,
+      "parameters": [],
+      "forcePullImage": false
+    }
+  },
+  "env": {
+    "RABBITMQ_PASS": "password"
+  },
+  "labels": {
+    "HAPROXY_GROUP": "external"
+  },
+  "portDefinitions": [
+    {
+      "port": 10112,
+      "protocol": "tcp",
+      "labels": {}
+    },
+    {
+      "port": 10111,
+      "protocol": "tcp",
+      "labels": {}
+    }
+  ]
+}
